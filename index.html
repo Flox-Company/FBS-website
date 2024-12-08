@@ -8,10 +8,13 @@
         function sendData() {
             const data = { message: 'Hello Server!' };
 
-            // Send data to the server via GET method (encoded as query parameters)
-            const queryString = new URLSearchParams(data).toString();
-            fetch('https://flox-company.github.io/FBS-website/?' + queryString, {
-                method: 'GET'
+            // Send data to the server
+            fetch('/server-endpoint', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
             })
             .then(response => response.text())
             .then(responseData => {
