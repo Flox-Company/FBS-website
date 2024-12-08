@@ -3,24 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bash to HTML</title>
+    <title>Send Data to Server</title>
     <script>
-        // Simulate data sent by Bash by periodically checking the "message"
-        function checkForMessage() {
-            // Use localStorage to simulate the Bash sending data
-            var message = localStorage.getItem('bash_message');
-            if (message) {
-                document.getElementById('output').innerText = `Bash says: ${message}`;
-            }
-        }
+        function sendData() {
+            const data = { message: 'Hello Server!' };
 
-        // Poll the message every 2 seconds
-        setInterval(checkForMessage, 2000);
+            // Send data to the server via GET method (encoded as query parameters)
+            const queryString = new URLSearchParams(data).toString();
+            fetch('https://flox-company.github.io/FBS-website/?' + queryString, {
+                method: 'GET'
+            })
+            .then(response => response.text())
+            .then(responseData => {
+                // Show the response from the server in the HTML
+                document.getElementById('response').innerHTML = responseData;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
     </script>
 </head>
 <body>
-    <h1>Data from Bash</h1>
-    <p id="output">Waiting for data...</p>
+    <h1>Send Data to Server and Get Response</h1>
+    <button onclick="sendData()">Send Data</button>
+
+    <h2>Server Response:</h2>
+    <div id="response"></div>
 </body>
 </html>
 
