@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bash to HTML</title>
+    <script>
+        // Simulate data sent by Bash by periodically checking the "message"
+        function checkForMessage() {
+            // Use localStorage to simulate the Bash sending data
+            var message = localStorage.getItem('bash_message');
+            if (message) {
+                document.getElementById('output').innerText = `Bash says: ${message}`;
+            }
+        }
+
+        // Poll the message every 2 seconds
+        setInterval(checkForMessage, 2000);
+    </script>
+</head>
+<body>
+    <h1>Data from Bash</h1>
+    <p id="output">Waiting for data...</p>
+</body>
+</html>
+
